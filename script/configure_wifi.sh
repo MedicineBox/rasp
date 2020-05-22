@@ -1,10 +1,9 @@
-
 device_id=$(~/Medicinebox/script/device_info)
 origin_ssid=Medicinebox_$device_id
 origin_psk=mdb_$device_id
 
-# echo "origin_ssid : $origin_ssid"
-# echo "origin_psk : $origin_psk"
+echo "origin_ssid : $origin_ssid"
+echo "origin_psk : $origin_psk"
 
 wifi_id=$1
 wifi_pw=$2

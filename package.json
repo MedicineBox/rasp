@@ -13,6 +13,7 @@
     "@abandonware/noble": "^1.9.2-8",
     "body-parser": "^1.19.0",
     "node-wiring-pi": "0.0.5",
+    "pm2": "^4.4.0",
     "request": "^2.88.2",
     "requets": "0.0.1-security",
     "socket.io": "^2.3.0"
