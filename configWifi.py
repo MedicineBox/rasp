@@ -19,13 +19,6 @@ apiUrl = 'http://ec2-3-34-54-94.ap-northeast-2.compute.amazonaws.com:65004/wifi'
 deviceInfo = {"device_id" : device_id }
 print "device_id : ", device_id
  
-# def setWifi() :
-    # result = os.system('ls -al | grep set*')
-    # result = subprocess.check_output("ls -al | grep set*", shell=True)
-    # print wifi_id
-    # p = subprocess.Popen("script/configure_wifi.sh"+wifi_id+wifi_pw)
-    # print result
-    # print(result)
 
 def getWifiInfo() :
     res = requests.get(url=apiUrl+"?device_id="+device_id,  
@@ -54,11 +47,9 @@ try :
 
         if longpush >= 15 :
             print("Long Pushed!!!")      
-            # longpush = 0      
             break
         if flag == 3 :
             print("Double tapped!!")
-            # flag = 0
             break
         
         time.sleep(0.2)
@@ -67,7 +58,6 @@ try :
         print("NETWORK INITIALIZATION!!!")
         os.system("script/init_wifi.sh")
         print("NETWORK RESTART!!!")
-        # subprocess.call(["script/network_restart.sh"])
         os.system("script/network_restart.sh")
         longpush = 0
         flag = 0
