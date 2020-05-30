@@ -6,6 +6,7 @@ import subprocess
 import RPi.GPIO as GPIO
 import time
 from dosing import dosing
+from checkQuantity import measureQuantity, getQuantity
 
 app = Flask(__name__)
 
@@ -38,7 +39,7 @@ app = Flask(__name__)
 #             return "false"
 
 
-@app.route('/api/dosing', methods = ['POST'])
+@app.route('/dosing', methods = ['POST'])
 def dosingApp():
     data = request.json
     slot = int(data['slot'])
@@ -52,6 +53,22 @@ def dosingApp():
         return "Fail to Dosing!" 
 
     # return result
+
+
+
+
+@app.route('/getQuantity', methods = ["GET", "POST"])
+def getQuantityApp():
+    if request.method == "POST" :
+        if measureQuantity() == "true" :
+            result = getQuantity()
+        else :
+            result = "Measure Error"
+    else :
+        result = getQuantity()
+    return result
+
+
 
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=60002, debug=True)
