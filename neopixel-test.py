@@ -3,12 +3,20 @@ import neopixel
 import time
 import board
 
-NEO = 18
-numNEO = 1
-# GPIO.setmode(GPIO.BCM)
-GPIO.setup(NEO, GPIO.OUT)
-pixels = neopixel.NeoPixel(board.D18, numNEO)
 
+num_pixels = 2
+# NEO = 20
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(NEO, GPIO.OUT)
+pixels = neopixel.NeoPixel(board.D18, num_pixels)
+
+# try :
+#     while True :
+#         GPIO.output(NEO, GPIO.HIGH)
+# except KeyboardInterrupt : 
+#     pass
+
+# GPIO.cleanup()
 # def show_neo(r, g, b):
 #     inc_r=int(r/9)
 #     inc_g=int(g/9)
@@ -35,9 +43,15 @@ pixels = neopixel.NeoPixel(board.D18, numNEO)
 
 
 while True:
+    pixels.fill((255, 0, 0))
+    pixels.show()
+    print("RED")
+    time.sleep(1)
     pixels.fill((0, 255, 0))
     pixels.show()
+    print("GREEN")
     time.sleep(1)
     pixels.fill((0, 0, 255))
     pixels.show()
+    print("BLUE")
     time.sleep(1)

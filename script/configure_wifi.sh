@@ -1,4 +1,4 @@
-device_id=$(~/Medicinebox/script/device_info)
+device_id=$(/home/pi/Medicinebox/script/device_info)
 origin_ssid=Medicinebox_$device_id
 origin_psk=mdb_$device_id
 

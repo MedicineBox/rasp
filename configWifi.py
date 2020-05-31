@@ -11,13 +11,14 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN)
 flag = 0
 longpush = 0
-device_id = subprocess.check_output("script/device_info", shell=True)
+device_id = str(subprocess.check_output("script/device_info", shell=True)).split("\'")[1]
+device_id = device_id.replace("\\n", "")
 device_id = device_id.replace("\n", "")
 
 
 apiUrl = 'http://ec2-3-34-54-94.ap-northeast-2.compute.amazonaws.com:65004/wifi'
 deviceInfo = {"device_id" : device_id }
-print "device_id : ", device_id
+print("device_id : ", device_id)
  
 
 def getWifiInfo() :
@@ -34,7 +35,7 @@ def deleteServerWifiInfo() :
         return res.text
 
 try :
-    print "push BUTTON double tap or long push"
+    print("push BUTTON double tap or long push")
     while True:
         if GPIO.input(BUTTON) != True:
             print("Pushed!!!")
@@ -66,25 +67,28 @@ try :
         wifiData = getWifiInfo()
         wifi_id = wifiData['wifi_id']
         wifi_pw = wifiData['wifi_pw']
+        print("Wifi : " + wifi_id + ", passwd : " + wifi_pw)
         command = "script/configure_wifi.sh \'" + wifi_id + "\' \'" + wifi_pw + "\'"
-        print command
+        print(command)
         subprocess.call("script/configure_wifi.sh \"" + wifi_id + "\" \"" + wifi_pw + "\"", shell=True)
-        network_state = subprocess.check_output("script/network_check_state.sh", shell=True)
-        print "network connected to : " + network_state
+        network_state = str(subprocess.check_output("script/network_check_state.sh", shell=True)).split("\'")[1]
+        network_state = network_state.replace("\\n", "")
+        network_state = network_state.replace("\n", "")
+        print("network connected to : " + network_state)
         longpush = 0
         flag = 0
         loopNum = 0
         while True :
             if network_state != "off/any\n" :
                 result = deleteServerWifiInfo()
-                print result
+                print(result)
                 break
             else :
-                print "Not Connected yet.."
+                print("Not Connected yet..")
                 network_state = subprocess.check_output("script/network_check_state.sh", shell=True)
                 time.sleep(3)
                 if loopNum > 20 :
-                    print "ERROR: CAN'T NOT CONNECT TO ",wifi_id
+                    print("ERROR: CAN'T NOT CONNECT TO ",wifi_id)
                     break
                 loopNum = loopNum + 1
         network_state = ""
