@@ -3,6 +3,7 @@ import time
 import subprocess
 import math
 import asyncio
+from showNeopixel import showQuantity, showLoading, blink
 
 
 GPIO.setwarnings(False)
@@ -22,183 +23,10 @@ for j in Echo :
     # print "ECHO : ", j
 
 
-# class AsyncCounter:
-#     def __init__(self, stop):
-#         self.current = 0
-#         self.stop = stop
- 
-#     def __aiter__(self):
-#         return self
- 
-#     async def __anext__(self):
-#         if self.current < self.stop:
-#             await asyncio.sleep(0.001)
-#             r = self.current
-#             self.current += 1
-#             return r
-#         else:
-#             raise StopAsyncIteration
-
-
-# # async def subMeasure(slot) :
-# #         for num in range (0, 100):
-# #         GPIO.output(Trig[slot], False)
-# #         time.sleep(0.1)
-# #         GPIO.output(Trig[slot], True)
-# #         time.sleep(0.00001)
-# #         GPIO.output(Trig[slot], False)
-# #         while GPIO.input(Echo[slot]) == 0:
-# #             start = time.time()             
-# #         while GPIO.input(Echo[slot]) == 1:
-# #             stop = time.time()
-# #         time_interval = stop - start
-# #         distance = time_interval * 17000
-# #         distance = round(distance, 2)
-
-# #         # print("distance : " + str(distance))
-# #         measure.append(distance)
-
-# async def coMeasure1() :
-#     slot = 0
-#     sum = 0
-#     measure = []
-#     print("slot : ", slot)
-#     # for num in range (0, 100):
-#     async for num in AsyncCounter(100):
-#         # print(num)
-#         GPIO.output(Trig[slot], False)
-#         time.sleep(0.1)
-#         GPIO.output(Trig[slot], True)
-#         time.sleep(0.00001)
-#         GPIO.output(Trig[slot], False)
-#         while GPIO.input(Echo[slot]) == 0:
-#             start = time.time()             
-#         while GPIO.input(Echo[slot]) == 1:
-#             stop = time.time()
-#         time_interval = stop - start
-#         distance = time_interval * 17000
-#         distance = round(distance, 2)
-
-#         print("distance : " + str(distance))
-#         measure.append(distance)
-
-#     sort = sorted(measure)[9:60]
-#     print("sort", (slot+1) ," : ", str(sort))
-#     result[slot] = round(math.fsum(sort) / 50, 1)
-#     # print("result : ", str(result))
-# async def coMeasure2() :
-#     slot = 1
-#     sum = 0
-#     measure = []
-#     print("slot : ", slot)
-#     # for num in range (0, 100):
-#     async for num in AsyncCounter(100):
-#         GPIO.output(Trig[slot], False)
-#         time.sleep(0.1)
-#         GPIO.output(Trig[slot], True)
-#         time.sleep(0.00001)
-#         GPIO.output(Trig[slot], False)
-#         while GPIO.input(Echo[slot]) == 0:
-#             start = time.time()             
-#         while GPIO.input(Echo[slot]) == 1:
-#             stop = time.time()
-#         time_interval = stop - start
-#         distance = time_interval * 17000
-#         distance = round(distance, 2)
-
-#         # print("distance : " + str(distance))
-#         measure.append(distance)
-
-#     sort = sorted(measure)[9:60]
-#     print("sort", (slot+1) ," : ", str(sort))
-#     result[slot] = round(math.fsum(sort) / 50, 1)
-#     # print("result : ", str(result))
-# async def coMeasure3() :
-#     slot = 2
-#     sum = 0
-#     measure = []
-#     print("slot : ", slot)
-#     # for num in range (0, 100):
-#     async for num in AsyncCounter(100):
-#         GPIO.output(Trig[slot], False)
-#         time.sleep(0.1)
-#         GPIO.output(Trig[slot], True)
-#         time.sleep(0.00001)
-#         GPIO.output(Trig[slot], False)
-#         while GPIO.input(Echo[slot]) == 0:
-#             start = time.time()             
-#         while GPIO.input(Echo[slot]) == 1:
-#             stop = time.time()
-#         time_interval = stop - start
-#         distance = time_interval * 17000
-#         distance = round(distance, 2)
-
-#         # print("distance : " + str(distance))
-#         measure.append(distance)
-
-#     sort = sorted(measure)[9:60]
-#     print("sort", (slot+1) ," : ", str(sort))
-#     result[slot] = round(math.fsum(sort) / 50, 1)
-#     # print("result : ", str(result))
-# async def coMeasure4() :
-#     slot = 3
-#     sum = 0
-#     measure = []
-#     print("slot : ", slot)
-#     # for num in range (0, 100):
-#     async for num in AsyncCounter(100):
-#         GPIO.output(Trig[slot], False)
-#         time.sleep(0.1)
-#         GPIO.output(Trig[slot], True)
-#         time.sleep(0.00001)
-#         GPIO.output(Trig[slot], False)
-#         while GPIO.input(Echo[slot]) == 0:
-#             start = time.time()             
-#         while GPIO.input(Echo[slot]) == 1:
-#             stop = time.time()
-#         time_interval = stop - start
-#         distance = time_interval * 17000
-#         distance = round(distance, 2)
-
-#         # print("distance : " + str(distance))
-#         measure.append(distance)
-
-#     sort = sorted(measure)[9:60]
-#     print("sort", (slot+1) ," : ", str(sort))
-#     result[slot] = round(math.fsum(sort) / 50, 1)
-#     # print("result : ", str(result))
-# async def coMeasure5() :
-#     slot = 4
-#     sum = 0
-#     measure = []
-#     print("slot : ", slot)
-#     # for num in range (0, 100):
-#     async for num in AsyncCounter(100):
-#         GPIO.output(Trig[slot], False)
-#         time.sleep(0.1)
-#         GPIO.output(Trig[slot], True)
-#         time.sleep(0.00001)
-#         GPIO.output(Trig[slot], False)
-#         while GPIO.input(Echo[slot]) == 0:
-#             start = time.time()             
-#         while GPIO.input(Echo[slot]) == 1:
-#             stop = time.time()
-#         time_interval = stop - start
-#         distance = time_interval * 17000
-#         distance = round(distance, 2)
-
-#         print("distance : " + str(distance))
-#         measure.append(distance)
-
-#     sort = sorted(measure)[9:60]
-#     print("sort", (slot+1) ," : ", str(sort))
-#     result[slot] = round(math.fsum(sort) / 50, 1)
-#     # print("result : ", str(result))
-
-
 def measureQuantity() :
 
     try :
+        showLoading()
         for slot in range(0, 6) :
             # while True:
             sum = 0
@@ -236,6 +64,8 @@ def measureQuantity() :
         now = time.localtime()
         nowstr = "%04d/%02d/%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         subprocess.call("echo " + str(result) + " // " + nowstr + " > script/quantity", shell=True)
+        blink('b')
+        showQuantity()
         return "true"
     except KeyboardInterrupt :
         GPIO.cleanup()

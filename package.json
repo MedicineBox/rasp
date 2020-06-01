@@ -18,5 +18,14 @@
     "request": "^2.88.2",
     "requets": "0.0.1-security",
     "socket.io": "^2.3.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MedicineBox/Device_raspberrypi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MedicineBox/Device_raspberrypi/issues"
+  },
+  "homepage": "https://github.com/MedicineBox/Device_raspberrypi#readme"
 }

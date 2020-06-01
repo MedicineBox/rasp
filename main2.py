@@ -7,10 +7,11 @@ import RPi.GPIO as GPIO
 import time
 from dosing import dosing
 from checkQuantity import measureQuantity, getQuantity
+from entrance import slotOpen, slotClose
 
 app = Flask(__name__)
 
-
+slotOpenStatus = [False, False, False, False, False, False]
 # def dosing(slot) :
 #     GPIO.setwarnings(False)
 #     servolist = [6, 5, 12, 7, 8, 25]
@@ -68,6 +69,21 @@ def getQuantityApp():
         result = getQuantity()
     return result
 
+@app.route('/open/<int:slot_num>', methods = ["GET"])
+def openSlotApp(slot_num) :
+    slot = slot_num - 1
+    if slotOpenStatus[slot] == False :
+        if slotOpen(slot) == "true" :
+            slotOpenStatus[slot] = True
+            return "open success"
+        else : return "open fail"
+    elif slotOpenStatus[slot] == True :
+        if slotClose(slot) == "true" :
+            slotOpenStatus[slot] = False
+            return "close success"
+        else : return "close fail"
+    else :
+        return "false"
 
 
 if __name__=='__main__':

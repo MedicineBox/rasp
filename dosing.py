@@ -6,6 +6,7 @@ module = [6, 5, 12, 7, 8, 25]
 # select = 0
 def dosing(slot) :
 
+    slot = slot - 1
 
     if slot >= 0 and slot < 6 :
         GPIO.setwarnings(False)
