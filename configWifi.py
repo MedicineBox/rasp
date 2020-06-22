@@ -12,7 +12,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN)
 flag = 0
 longpush = 0
-device_id = str(subprocess.check_output("script/device_info", shell=True)).split("\'")[1]
+device_id = str(subprocess.check_output("/home/pi/Medicinebox/script/device_info", shell=True)).split("\'")[1]
 device_id = device_id.replace("\\n", "")
 device_id = device_id.replace("\n", "")
 
@@ -42,7 +42,7 @@ def updateDeviceIp() :
     while device_ip == "" or len(device_ip) > 16  :
         print("wifi checking...")
         time.sleep(1)
-        device_ip = str(subprocess.check_output("script/network_ip_addr.sh", shell=True)).split("\'")[1]
+        device_ip = str(subprocess.check_output("/home/pi/Medicinebox/script/network_ip_addr.sh", shell=True)).split("\'")[1]
         device_ip = device_ip.replace("\\n", "")
         device_ip = device_ip.replace("\n", "")
         time.sleep(1)
@@ -79,10 +79,10 @@ try :
     if longpush >= 15 :
         # showLoading()
         print("NETWORK INITIALIZATION!!!")
-        os.system("script/init_wifi.sh")
+        os.system("/home/pi/Medicinebox/script/init_wifi.sh")
         print("NETWORK RESTART!!!")
-        os.system("script/network_restart.sh")
-        keepBlink('g')
+        os.system("/home/pi/Medicinebox/script/network_restart.sh")
+       # keepBlink('g')
         
 
         longpush = 0
@@ -94,10 +94,11 @@ try :
         wifi_id = wifiData['wifi_id']
         wifi_pw = wifiData['wifi_pw']
         print("Wifi : " + wifi_id + ", passwd : " + wifi_pw)
-        command = "script/configure_wifi.sh \'" + wifi_id + "\' \'" + wifi_pw + "\'"
+        command = "/home/pi/Medicinebox/script/configure_wifi.sh \'" + wifi_id + "\' \'" + wifi_pw + "\'"
         print(command)
-        subprocess.call("script/configure_wifi.sh \"" + wifi_id + "\" \"" + wifi_pw + "\"", shell=True)
-        network_state = str(subprocess.check_output("script/network_check_state.sh", shell=True)).split("\'")[1]
+        subprocess.call("/home/pi/Medicinebox/script/configure_wifi.sh \"" + wifi_id + "\" \"" + wifi_pw + "\"", shell=True)
+        # subprocess.call("/home/pi/Medicinebox/script/configure_wifi.sh \'" + wifi_id + "\' \'" + wifi_pw + "\'", shell=True)
+        network_state = str(subprocess.check_output("/home/pi/Medicinebox/script/network_check_state.sh", shell=True)).split("\'")[1]
         network_state = network_state.replace("\\n", "")
         network_state = network_state.replace("\n", "")
         print("network connected to : " + network_state)
@@ -116,7 +117,7 @@ try :
             else :
                 print("Not Connected yet..")
                 print("network2 connected to : " + network_state)
-                network_state = str(subprocess.check_output("script/network_check_state.sh", shell=True)).split("\'")[1]
+                network_state = str(subprocess.check_output("/home/pi/Medicinebox/script/network_check_state.sh", shell=True)).split("\'")[1]
                 network_state = network_state.replace("\\n", "")
                 network_state = network_state.replace("\n", "")
                 time.sleep(3)
